@@ -1,0 +1,87 @@
+@font-face {
+	font-family: 'Myriad Pro';
+	src: url('../fonts/MyriadPro-Regular.eot');
+	src: local('Myriad Pro Regular'), local('MyriadPro-Regular'),
+		url('../fonts/MyriadPro-Regular.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/MyriadPro-Regular.woff') format('woff'),
+		url('../fonts/MyriadPro-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+*{
+  font-family: 'Myriad Pro', sans-serif;
+}
+
+.calculator_wrapper{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  width: 310px;
+  height: 450px;
+  margin: 10vh auto 0 auto;
+  background: #8f8f8f;
+  border-radius: 10px;
+}
+
+.user-display-wrapper{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  box-sizing: border-box;
+}
+
+.user-display{
+  font-size: 39px;
+  color: #f2f2f2;
+}
+
+.button_block_wrapper{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 310px;
+  height: 300px;
+  margin: 0 0 20px 0;
+  padding: 10px 0 10px 0;
+  background: #b2b2b2;
+  border-radius: 0 0 10px 10px;
+  box-sizing: border-box;
+}
+
+.button{
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  margin: 5px 5px 5px 5px;
+  background: #585858;
+  border-radius: 5px;
+  box-shadow: 0 4px #8f8f8f;
+  border: none;
+  outline: none;
+}
+
+.button:nth-of-type(4n + 4){
+  background: #c89a7c;
+}
+
+.button:active{
+  top: 2px;
+  background: #444444;
+  box-shadow: 0 2px #8f8f8f;
+}
+
+.button:nth-of-type(4n + 4):active{
+  top: 2px;
+  background: #967C6A;
+}
+
+.button span{
+  font-size: 34px;
+  color: #cccccc;
+}

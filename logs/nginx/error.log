@@ -1,0 +1,3 @@
+2021/04/01 15:12:20 [error] 22#22: *1 open() "/var/www/test.dev/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: test.dev, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2021/04/03 04:28:52 [error] 23#23: *2 open() "/var/www/test.dev/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: test.dev, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2021/04/03 05:26:06 [error] 22#22: *15 open() "/var/www/test.dev/js/components/calculator" failed (2: No such file or directory), client: 172.18.0.1, server: test.dev, request: "GET /js/components/calculator HTTP/1.1", host: "localhost", referrer: "http://localhost/js/app.js"
