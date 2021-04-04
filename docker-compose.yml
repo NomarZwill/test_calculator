@@ -7,11 +7,11 @@ services:
       - "443:443"
     volumes:
       - ./hosts:/etc/nginx/conf.d
-      - ./www:/var/www
+      - ./:/var/www
       - ./logs/nginx:/var/log/nginx
     links:
       - php
   php:
     build: ./images/php
     volumes:
-      - ./www:/var/www
+      - ./:/var/www

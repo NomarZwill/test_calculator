@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Калькулятор, тестовое</title>
-  <link rel="stylesheet" href="../css/slyles.css">
+  <link rel="stylesheet" href="src/css/slyles.css">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
     <button class="button" data-value="9" data-digit>
       <span>9</span>
     </button>
-    <button class="button" data-value="+" data-action>
+    <button class="button" data-value="+" data-value-to-display="+" data-action>
       <span>+</span>
     </button>
     <button class="button" data-value="4" data-digit>
@@ -34,7 +34,7 @@
     <button class="button" data-value="6" data-digit>
       <span>6</span>
     </button>
-    <button class="button" data-value="-" data-action>
+    <button class="button" data-value="-" data-value-to-display="&ndash;" data-action>
       <span>&ndash;</span>
     </button>
     <button class="button" data-value="1" data-digit>
@@ -46,7 +46,7 @@
     <button class="button" data-value="3" data-digit>
       <span>3</span>
     </button>
-    <button class="button" data-value="/" data-action>
+    <button class="button" data-value="/" data-value-to-display="÷" data-action>
       <span>÷</span>
     </button>
     <button class="button" data-value="0" data-digit>
@@ -58,7 +58,7 @@
     <button class="button" data-value="=" data-get-result>
       <span>=</span>
     </button>
-    <button class="button" data-value="*" data-action>
+    <button class="button" data-value="*" data-value-to-display="x" data-action>
       <span>x</span>
     </button>
 
@@ -66,6 +66,6 @@
 
 </div>
 
-<script type="module" src="../js/app.js"></script>
+<script type="module" src="src/js/app.js"></script>
 
 </body>
