@@ -4,14 +4,12 @@ export default class Calculator{
   constructor(){
 		let self = this;
     self.isFirstAction = true;
-
-    // объект для вычислений
     self.state = {
       'inputString' : '0',
       'displayString' : '0'
     };
-
     self.userDisplay = document.querySelector('[data-user-display]');
+    
     document.querySelector('[data-button-block]').addEventListener('click', (event) => {
       self.buttonClickForwarder(event);
     });
@@ -20,8 +18,13 @@ export default class Calculator{
 
   init(){
     let self = this;
+    let savedState = JSON.parse(localStorage.getItem("calculatorState"));
+
+    if (savedState !== null){
+      self.state = savedState;
+    }
+
     self.updateUserDisplay();
-    // console.log(document.querySelector('[data-button-block]'));
   }
 
   buttonClickForwarder(event){
@@ -57,12 +60,15 @@ export default class Calculator{
     if (self.state['inputString'].substring(self.state['inputString'].length - 2) === ' 0'){
       self.state['inputString'] = self.state['inputString'].substring(0, self.state['inputString'].length - 1) + digit;
       self.state['displayString'] = self.state['displayString'].substring(0, self.state['displayString'].length - 1) + digit;
+      self.saveState();
     } else if (self.state['inputString'] === '0'){
       self.state['inputString'] = digit;
       self.state['displayString'] = digit;
+      self.saveState();
     } else {
       self.state['inputString'] += digit;
       self.state['displayString'] += digit;
+      self.saveState();
     }
     self.updateUserDisplay();
   }
@@ -72,13 +78,23 @@ export default class Calculator{
 
     if (!self.isFirstAction && self.state['inputString'].substring(self.state['inputString'].length - 1) !== ' '){
 
-      let data = {
+      let input = {
         "inputString": self.state['inputString'],
       };
-      self.getCalculation(data)
+      self.getCalculation(input)
       .then(data => {
-        self.state['inputString'] = data.result + ' ' + action;
-        self.state['displayString'] = data.result + ' ' + valueToDisplay;
+        if (data.state !== 'success') {
+          alert(data.state);
+          self.state['inputString'] = data.result + '';
+          self.state['displayString'] = data.result;
+          self.saveState();
+          self.isFirstAction = true; 
+        } else {
+          self.state['inputString'] = data.result + ' ' + action + ' ';
+          self.state['displayString'] = data.result + ' ' + valueToDisplay + ' ';
+          self.saveState();
+        }
+
         self.updateUserDisplay();
       });
       return;
@@ -87,12 +103,15 @@ export default class Calculator{
     if (self.state['inputString'].substring(self.state['inputString'].length - 1) === ' '){
       self.state['inputString'] = self.state['inputString'].substring(0, self.state['inputString'].length - 2) + action + ' ';
       self.state['displayString'] = self.state['displayString'].substring(0, self.state['displayString'].length - 2) + valueToDisplay + ' ';
+      self.saveState();
     } else if (self.state['inputString'].substring(self.state['inputString'].length - 1) === '.'){
       self.state['inputString'] = self.state['inputString'].substring(0, self.state['inputString'].length - 1) + ' ' + action + ' ';
       self.state['displayString'] = self.state['displayString'].substring(0, self.state['displayString'].length - 1) + ' ' + valueToDisplay + ' ';
+      self.saveState();
     } else {
       self.state['inputString'] += ' ' + action + ' ';
       self.state['displayString'] += ' ' + valueToDisplay + ' ';
+      self.saveState();
     }
     self.isFirstAction = false;
     self.updateUserDisplay();
@@ -108,24 +127,31 @@ export default class Calculator{
     if (self.state['inputString'].substring(self.state['inputString'].length - 1) === ' '){
       self.state['inputString'] += ' 0.';
       self.state['displayString'] += ' 0.';
+      self.saveState();
     } else if (self.state['inputString'].substring(self.state['inputString'].length - 1) === '.'){
       return;
     } else {
       self.state['inputString'] += '.';
       self.state['displayString'] += '.';
+      self.saveState();
     }
     self.updateUserDisplay();
   }
 
   resultHandler(){
     let self = this;
-    let data = {
+    let input = {
       "inputString": self.state['inputString'],
     };
-    self.getCalculation(data)
+    self.getCalculation(input)
     .then(data => {
-      self.state['inputString'] = data.result;
-      self.state['displayString'] = data.result;
+
+      if (data.state !== 'success') {
+        alert(data.state);
+      }
+      self.state['inputString'] = data.result + '';
+      self.state['displayString'] = data.result + '';
+      self.saveState();
       self.updateUserDisplay();
       self.isFirstAction = true;
     });
@@ -156,5 +182,10 @@ export default class Calculator{
   checkLastChunkMaxLength(){
     let self = this;
     return self.getLastChunk().length > 10; 
+  }
+
+  saveState(){
+    let self = this;
+    localStorage.setItem("calculatorState",JSON.stringify(self.state));
   }
 }
